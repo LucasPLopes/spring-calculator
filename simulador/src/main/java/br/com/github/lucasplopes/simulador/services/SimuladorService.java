@@ -10,10 +10,13 @@ import br.com.github.lucasplopes.simulador.model.entities.JurosCompostos;
 public class SimuladorService {
 
     public JurosCompostos calcular(JurosCompostos modelo){
-        BigDecimal montante =modelo.getCapital().multiply(modelo.getTaxa().add(BigDecimal.ONE).multiply(
-            modelo.getPeriodo()
-        ));
-        modelo.setMontante(montante);
+        BigDecimal jurosPorPeriodo = modelo.getTaxa().add(BigDecimal.ONE).pow(
+            modelo.getPeriodo().intValue()
+        ).setScale(5);
+        BigDecimal montante =modelo.getCapital().multiply(jurosPorPeriodo);
+
+        modelo.setMontante(montante.setScale(2));
+        modelo.setJurosPorPeriodo(jurosPorPeriodo.add(BigDecimal.ONE.negate()));
         return modelo;
     }
     
