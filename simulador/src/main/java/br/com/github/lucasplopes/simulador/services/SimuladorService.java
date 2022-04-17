@@ -12,7 +12,7 @@ public class SimuladorService {
     public JurosCompostos calcular(JurosCompostos modelo){
         BigDecimal jurosPorPeriodo = modelo.getTaxa().add(BigDecimal.ONE).pow(
             modelo.getPeriodo().intValue()
-        ).setScale(5);
+        ).setScale(2);
         BigDecimal montante =modelo.getCapital().multiply(jurosPorPeriodo);
 
         modelo.setMontante(montante.setScale(2));
